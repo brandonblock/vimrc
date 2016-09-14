@@ -27,6 +27,8 @@ Plugin 'raimondi/delimitmate'
 Plugin 'tpope/vim-fugitive'
 Plugin 'itchyny/lightline.vim'
 Plugin 'jmcantrell/vim-virtualenv'
+Plugin 'Shougo/vimshell.vim'
+Plugin 'Shougo/vimproc.vim'
 
 " All of your Plugins must be added before the following line
 call vundle#end()            " required
@@ -91,24 +93,6 @@ au BufNewFile,BufRead *.js
     \ colorscheme hybrid |
     \ set background=dark |
 
-au BufNewFile,BufRead *.cljs
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2 |
-    \ set expandtab |
-    \ set autoindent |
-    \ set smartindent |
-    \ colorscheme muon_modified |
-
-au BufNewFile,BufRead *.clj
-    \ set tabstop=2 |
-    \ set softtabstop=2 |
-    \ set shiftwidth=2 |
-    \set expandtab |
-    \set autoindent |
-    \set smartindent |
-    \colorscheme muon_modified |
-
 " UTF-8 Encoding
 set encoding=utf-8
 
@@ -163,7 +147,7 @@ set mouse=a
 hi CursorLine cterm=NONE
 
 " Delimitmate smart newline?
-let delimitMate_expand_cr=1
+let delimitMate_expand_cr=0
 
 " Hide .pyc files from nerdtree
 let NERDTreeIgnore=['\.pyc$', '\~$']
@@ -171,21 +155,8 @@ let NERDTreeIgnore=['\.pyc$', '\~$']
 " Remap colon to semicolon for commands
 nnoremap ; :
 
-" map :E to :Eval
-:command EV :Eval
-
-"map :C to :Connect
-:command C :Connect
-
 " map :NT to NERDTree
 :command NT :NERDTree
-
-"JSBeautify in Visual Mode
-autocmd FileType javascript vnoremap <buffer>  <c-f> :call RangeJsBeautify()<cr>
-autocmd FileType json vnoremap <buffer> <c-f> :call RangeJsonBeautify()<cr>
-autocmd FileType jsx vnoremap <buffer> <c-f> :call RangeJsxBeautify()<cr>
-autocmd FileType html vnoremap <buffer> <c-f> :call RangeHtmlBeautify()<cr>
-autocmd FileType css vnoremap <buffer> <c-f> :call RangeCSSBeautify()<cr>
 
 " Remove double quote concealment (for JSON plugin)
 let g:vim_json_syntax_conceal = 0
@@ -238,6 +209,7 @@ let g:syntastic_style_warning_symbol = ""
 let g:syntastic_error_symbol = ""
 let g:syntastic_warning_symbol = ""
 
+" go tweaks
 let g:go_list_type = "quickfix"
 let g:go_highlight_functions = 1
 let g:go_highlight_methods = 1
@@ -245,3 +217,8 @@ let g:go_highlight_fields = 1
 let g:go_highlight_types = 1
 let g:go_highlight_operators = 1
 let g:go_highlight_build_constraints = 1
+
+" VimShell bindings
+command TE :rightb vsp | VimShell
+command TO :rightb sp | VimShell
+:let g:vimshell_prompt = "VimShell ~ $ "
